@@ -1,0 +1,60 @@
+#!/bin/sh /etc/rc.common
+START=150
+
+run_Auth()
+{
+	local returnCode
+	#read username and passwd on luci textboxs
+	local username=$(uci get scDial.@login[0].username)
+	local passwd=$(uci get scDial.@login[0].password)
+	local AuthCode=$(uci get scDial.@login[0].AuthCode)
+	local isReConnected=$(uci get scDial.@login[0].enable)
+	local Operator=$(uci get scDial.@login[0].Operator)
+
+	#Output message to dialConfig
+	echo "$username" >/sbin/dialConfig
+	echo "$passwd" >>/sbin/dialConfig
+	echo "$AuthCode" >>/sbin/dialConfig
+	echo "$isReConnected" >/sbin/isReConnected
+	echo "$Operator" >/sbin/authWay
+	
+	#Show machine code on luci
+	/sbin/showMachineCode.sh&
+	
+	#restart dailing
+	killall mainLogic.sh&
+	sleep 2
+	/sbin/dial.sh
+	returnCode=$?
+	echo $returnCode
+	if [ $returnCode -eq 253 ] 
+	then
+		/sbin/showDialStatus.sh "授权码错误"
+		exit 1 
+	else
+		if [ $returnCode -eq 255 ] 
+		then
+			/sbin/showDialStatus.sh "账号密码不能为空，激活码必须为32字符,请检查是否输入正确"
+			exit 1 
+		else
+			/sbin/setPPPresult.sh
+		fi
+	fi
+	
+	sleep 5
+	
+	/sbin/mainLogic.sh&
+}
+
+
+start()
+{
+    config_load scDial
+    run_Auth
+}
+ 
+stop()
+{
+	kill $(pgrep mainLogic.sh)
+    	echo "scDial has stoped."
+}
