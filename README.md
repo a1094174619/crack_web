@@ -20,8 +20,8 @@
 ![image]( https://github.com/a1094174619/crack_web/tree/master/image/luci.png)  
  
 ### 代码使用方式：  
-	1.需要一台有curl工具的openwrt路由器可以自己编译也可以使用openwrt官方的固件并安装curl及其安装包。  
-	2.因为都是用脚本写的，故所有的文件均是直接替换至路由器的目录，并给相应的执行脚本加上执行权限后重启路由器即可看到luci界面，理论上兼容所有的openwrt路由器，仅有一加密执行文件用c语言编写并交叉编译到ar71xx平台上（需注意）。  
+1.需要一台有curl工具的openwrt路由器可以自己编译也可以使用openwrt官方的固件并安装curl及其安装包。  
+2.因为都是用脚本写的，故所有的文件均是直接替换至路由器的目录，并给相应的执行脚本加上执行权限后重启路由器即可看到luci界面，理论上兼容所有的openwrt路由器，仅有一加密执行文件用c语言编写并交叉编译到ar71xx平台上（需注意）。  
 ### 代码的各个目录与文件说明：  
 /etc目录主要存放配置文件，需给etc/init.d/scDial加上可执行权限  
 	/etc/config/wireless中wifi-iface是配置路由器AP+Client桥接的WIFI,因为我本科学校需要无线桥接CMCC-EDU再认证  
