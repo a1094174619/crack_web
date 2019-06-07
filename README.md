@@ -36,5 +36,5 @@
 /usr保存界面设计的Luci文件  
 /www保存广告信息，可忽略不进行替换  
 ### 逻辑流程图如下：  
-	![image]( https://github.com/a1094174619/crack_web/tree/master/image/flow.png)  
-	仅仅用作学习交流使用！！  
+![image]( https://github.com/a1094174619/crack_web/tree/master/image/flow.png)  
+仅仅用作学习交流使用！！  
